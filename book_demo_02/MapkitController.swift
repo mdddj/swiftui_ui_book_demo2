@@ -48,11 +48,13 @@ class MapkitController : UIViewController {
         trailingContraint.isActive = true
         
         //通过代码来实现事件
-        segmentedControl.addTarget(self, action: "", for: .valueChanged) // 运行报错
+        // 老版本"mapTypeChanged:" 会运行报错
+        //action: #selector(MapkitController.mapTypeChanged(segControl:)) 这样写是没有问题的
+        segmentedControl.addTarget(self, action:#selector(MapkitController.mapTypeChanged(segControl:)), for: .valueChanged) // 运行报错
     }
     
     ///切换地图显示模式
-    func mapTypeChanged(segControl: UISegmentedControl){
+    @objc func mapTypeChanged(segControl: UISegmentedControl){
         switch segControl.selectedSegmentIndex {
         case 0:
             mapView.mapType = .standard
